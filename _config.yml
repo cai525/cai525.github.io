@@ -2,7 +2,7 @@ title: Blog of C.P.F.
 description: 
 url: "https://cai525.github.io"
 theme: null
-
+markdown: kramdowngit
 # debug:
 #   compress: true
 #   dist: false
