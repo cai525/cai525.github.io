@@ -1,17 +1,23 @@
 ---
 sort: 1
 ---
-<head>
-    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
-    <script type="text/x-mathjax-config">
-        MathJax.Hub.Config({
-            tex2jax: {
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-            inlineMath: [['$','$']]
-            }
-        });
-    </script>
-</head>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    TeX: {
+        equationNumbers: {
+            autoNumber: "AMS"
+        }
+    },
+    tex2jax: {
+        inlineMath: [ ['$','$'] ],
+        displayMath: [ ['$$','$$'] ],
+        processEscapes: true,
+    }
+});
+</script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
 # Cause intervention(因果干预)
 
 本文的起因是读到了ICASSP2023的一篇论文[^1],其中的核心是因果干预(Cause intervention)，于是按照文中引用文献大致学习了因果干预方法在计算机视觉和音频领域的应用。
@@ -24,7 +30,7 @@ sort: 1
 
 <div align="center"><img src="img/1694362308766.png" width=600></div>
 
-从上图可以看出，”富有“这一变量直接影响”奢侈品“和”长寿“两个变量。在因果理论中，将这种变量称为混淆因子（confonder）。假设  $\begin{align}P(C=1|X=1)=0.9\end{align}$ ，$\begin{align}P(Y=1|C=1)=0.9\end{align}$，$\begin{align}P(Y=1|C=0)=0.4\end{align}$，$P(Y)$ 仅由 $C$​ 决定 ，则：
+从上图可以看出，”富有“这一变量直接影响”奢侈品“和”长寿“两个变量。在因果理论中，将这种变量称为混淆因子（confonder）。假设  $P(C=1|X=1)=0.9$ ，$P(Y=1|C=1)=0.9$，$P(Y=1|C=0)=0.4$，$P(Y)$ 仅由  $C​$决定 ，则：
 
 
 
