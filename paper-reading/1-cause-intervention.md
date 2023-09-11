@@ -1,22 +1,18 @@
 ---
 sort: 1
 ---
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-    TeX: {
-        equationNumbers: {
-            autoNumber: "AMS"
-        }
-    },
-    tex2jax: {
-        inlineMath: [ ['$','$'] ],
-        displayMath: [ ['$$','$$'] ],
-        processEscapes: true,
-    }
-});
-</script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
+<head>
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            inlineMath: [['$','$']]
+            }
+        });
+    </script>
+</head>
+
 
 # Cause intervention(因果干预)
 
@@ -30,7 +26,7 @@ MathJax.Hub.Config({
 
 <div align="center"><img src="img/1694362308766.png" width=600></div>
 
-从上图可以看出，”富有“这一变量直接影响”奢侈品“和”长寿“两个变量。在因果理论中，将这种变量称为混淆因子（confonder）。假设  $P(C=1|X=1)=0.9$ ，$P(Y=1|C=1)=0.9$，$P(Y=1|C=0)=0.4$，$P(Y)$ 仅由  $C​$决定 ，则：
+从上图可以看出，”富有“这一变量直接影响”奢侈品“和”长寿“两个变量。在因果理论中，将这种变量称为混淆因子（confonder）。假设  $P(C=1/X=1)=0.9$ ，$P(Y=1/C=1)=0.9$，$P(Y=1/C=0)=0.4$，$P(Y)$ 仅由  $C$决定 ，则：
 
 
 
