@@ -29,3 +29,7 @@ _sass/@primer/css/**/*.md
 
 # action
 action.changelog.md
+
+# other
+*.ppt
+*.pptx
