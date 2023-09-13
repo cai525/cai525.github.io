@@ -78,3 +78,6 @@ Zhang等[^3]采用因果干预的方法解决这一问题。在论文中，他�
 [^3]: Causal Intervention for Weakly-Supervised Semantic Segmentation 
 [^4]: Improving Weakly-supervised Object Localization via Causal Intervention, MM 2021
 
+---
+
+<font size=3><b>发布时间：2023-9-10      最后编辑时间：2023-9-10</b></font>
