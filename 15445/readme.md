@@ -3,6 +3,8 @@ sort: 2
 ---
 
 # CMU15445
+<font size=3><b>发布时间：2023-9-10      最后编辑时间：2023-9-13</b></font>
+
 CMU15-445是卡耐基梅隆大学的一门数据库课程。该门课程涉及到数据库方方面面，包括数据模型、存储模型、查询语言（SQL）、存储体系结构（堆、日志结构）、索引（顺序保留树、哈希表）、事务处理与恢复、查询处理与优化和并行体系结构（多核、分布式）等。
 
 该门课程的一大亮点在于, 其在实验部分使用C++语言设计了一个关系型数据库 [bustub]([cmu-db/bustub: The BusTub Relational Database Management System (Educational) (github.com)](https://github.com/cmu-db/bustub))。学生需要按照课程的要求，一步步的完善bustub的内容：
@@ -28,11 +30,6 @@ CMU15-445是卡耐基梅隆大学的一门数据库课程。该门课程涉及�
 - [BusTub 养成记：从课程项目到 SQL 数据库 ](https://zhuanlan.zhihu.com/p/570917775) ：课程TA迟先生对项目的介绍；
 - [CMU 15-445: Database Systems - CS自学指南 (csdiy.wiki)](https://csdiy.wiki/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F/15445/) ：CS自学指南里对课程的简单介绍；
 
-
-
-------
-
-<font size=3><b>发布时间：2023-9-10      最后编辑时间：2023-9-13</b></font>
 
 
 

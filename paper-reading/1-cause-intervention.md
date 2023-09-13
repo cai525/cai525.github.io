@@ -4,6 +4,8 @@ sort: 1
 
 # Cause intervention(因果干预)
 
+<font size=3><b>发布时间：2023-9-10      最后编辑时间：2023-9-10</b></font>
+
 本文的起因是读到了ICASSP2023的一篇论文[^1],其中的核心是因果干预(Cause intervention)，于是按照文中引用文献大致学习了因果干预方法在计算机视觉和音频领域的应用。
 
 ## 1 基本概念
@@ -77,7 +79,3 @@ Zhang等[^3]采用因果干预的方法解决这一问题。在论文中，他�
 [^2]: Bolei Zhou, Aditya Khosla, et.al. Learning deep features for discriminative localization. In CVPR, 2016.
 [^3]: Causal Intervention for Weakly-Supervised Semantic Segmentation 
 [^4]: Improving Weakly-supervised Object Localization via Causal Intervention, MM 2021
-
----
-
-<font size=3><b>发布时间：2023-9-10      最后编辑时间：2023-9-10</b></font>
