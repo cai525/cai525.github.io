@@ -9,7 +9,7 @@ sort: 2
 
 CMU15-445是卡耐基梅隆大学的一门数据库课程。该门课程涉及到数据库方方面面，包括数据模型、存储模型、查询语言（SQL）、存储体系结构（堆、日志结构）、索引（顺序保留树、哈希表）、事务处理与恢复、查询处理与优化和并行体系结构（多核、分布式）等。
 
-该门课程的一大亮点在于, 其在实验部分使用C++语言设计了一个关系型数据库 [bustub]([cmu-db/bustub: The BusTub Relational Database Management System (Educational) (github.com)](https://github.com/cmu-db/bustub))。学生需要按照课程的要求，一步步的完善bustub的内容：
+该门课程的一大亮点在于, 其在实验部分使用C++语言设计了一个关系型数据库 [bustub](https://github.com/cmu-db/bustub)。学生需要按照课程的要求，一步步的完善bustub的内容：
 
 - project 1 中，需要为数据库实现缓存池。利用缓存池可以尽可能的避免由磁盘IO带来的性能损失；
 - project 2 实现了基于B+树的索引。利用索引可以更加快速的进行数据查询；
@@ -22,7 +22,7 @@ CMU15-445是卡耐基梅隆大学的一门数据库课程。该门课程涉及�
 
 ## 前置要求
 
-- C++语法基础，尤其需要掌握C++11之后的modern c++语法。该项目使用语言版本为C++17（必需，该课程进行的前提是完成 [p0]([Project #0 - C++ Primer | CMU 15-445/645 :: Intro to Database Systems (Fall 2022)](https://15445.courses.cs.cmu.edu/fall2022/project0/)) 的测试，以验证你具有完成该项目所需的c++知识）；
+- C++语法基础，尤其需要掌握C++11之后的modern c++语法。该项目使用语言版本为C++17（必需，该课程进行的前提是完成 [p0](https://15445.courses.cs.cmu.edu/fall2022/project0/) 的测试，以验证你具有完成该项目所需的c++知识）；
 - 基本的计算机常识，诸如操作系统、数据结构等(非必需，课程内对涉及的相关知识会进行介绍)；
 - 基本的数据库知识, 如SQL基本指令(非必需，课程前几节课会简单介绍)；
 
