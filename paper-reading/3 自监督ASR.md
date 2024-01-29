@@ -38,15 +38,15 @@ We optimize the loss $L = \sum_{k=1}^{K}L_k$, summing (1) over different step si
 
 #### 编码网络(Encoder network)
 
-Embeds the audio signal in a latent space.
+- Embeds the audio signal in a latent space.
 
-五层CNN构成。
+- 五层CNN构成。
 
 #### 上下文网络(context network)
 
-Combines multiple timesteps of the encoder to obtain contextualized representations。即语言模型建模 $$p(z_{i+k}|z_i . . . z_{i−r})$$ 。
+- Combines multiple timesteps of the encoder to obtain contextualized representations。即语言模型建模 $$p(z_{i+k} \vert z_i . . . z_{i−r})$$ 。
 
-9层CNN构成；
+- 9层CNN构成；
 
 
 
