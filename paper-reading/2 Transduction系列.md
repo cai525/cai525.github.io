@@ -243,6 +243,8 @@ def greedy_search(model: Transducer, encoder_out: torch.Tensor) -> List[int]:
 
 
 
+## Reference
+
 [^1]: Sequence Transduction with Recurrent Neural Networks, 2012
 [^2]: TRANSFORMER TRANSDUCER: A STREAMABLE SPEECH RECOGNITION MODEL WITH TRANSFORMER ENCODERS AND RNN-T LOSS, ICASSP2020
 [^3]: Transformer-XL: Attentive Language Models Beyond a Fixed-Length Context

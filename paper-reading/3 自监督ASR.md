@@ -44,7 +44,7 @@ We optimize the loss $L = \sum_{k=1}^{K}L_k$, summing (1) over different step si
 
 #### 上下文网络(context network)
 
-- Combines multiple timesteps of the encoder to obtain contextualized representations。即语言模型建模 $$p(z_{i+k} \vert z_i . . . z_{i−r})$$ 。
+- Combines multiple timesteps of the encoder to obtain contextualized representations。即语言模型建模 $p(z_{i+k} \vert z_i . . . z_{i−r})​$ 。
 
 - 9层CNN构成；
 
@@ -144,6 +144,10 @@ wav2vec 和 Hubert 都使用了掩码预测的任务进行自监督预训练。�
 - wav2vec2.0预训练是端到端的，非迭代的；HuBert需要进行迭代以提高伪标签质量；
 
 
+
+
+
+## Reference
 
 [^1]: wav2vec: Unsupervised Pre-training for Speech Recognition, INTERSPEECH 2019
 [^2]: wav2vec 2.0: A Framework for Self-Supervised Learning of Speech Representations,NIPS,2020
