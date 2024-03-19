@@ -1,5 +1,5 @@
 ---
-ssort: 3
+sort: 3
 ---
 
 # 基于whisper的ASR服务器
