@@ -24,7 +24,7 @@ Diffusion 的前向过程(forward process or diffusion process) 利用马尔可�
 
 $$q( \mathbf{x}_ {1: T}\vert\mathbf{x}_ {0}  ):=\prod \limits^{T}_{t=1} q( x_ {t} \vert\mathbf{x}_ {t-1}  )，q(   \mathbf{x}_t     \vert\mathbf{x}_{t-1}   ):=N( \mathbf{x}_t ; \sqrt {1-\beta_{t}}\mathbf{x}_ {t-1}   ,   \beta _ {t}   \mathbf{I}) \qquad  (1)$$
 
-从数学上可以推导出前向过程中任意轮次t时 x 的分布，以及已知 $\mathbf{x}_0$ 和 $\mathbf{x}_t$ 的条件下，$\mathbf{x}_{t-1}$ 的分布:
+从数学上可以推导出前向过程中任意轮次t时 x 的分布，以及已知 $\mathbf{x}_0$ 和 $\mathbf{x}_t$ 的条件下, $\mathbf{x}_{t-1}$ 的分布:
 
 $$q( \mathbf{x}_ {t}   \vert\mathbf{x}_ {0}  )= \mathcal{N}(  \mathbf{x}_ {t}  ;  \sqrt {\overline\alpha} _ {t}\mathbf{x}_ {0},  (1-  \overline\alpha _ {t}  )\mathbf{I}) \qquad (2)$$				
 
@@ -54,7 +54,7 @@ $$p_{\theta}(\mathbf{x}_ {0:T}  ):=p(\mathbf{x}_T)\prod \limits^{T}_{t=1} p_{\th
 
 diffusion 属于基于似然的生成式方法，其目标是优化负对数似然的变分上界:
 
-$\mathbb{E}[-  \log   p_ {\theta }  (  \mathbf{x}_ {0}  )]  \leqslant   \mathbb{E}_ {q}  [-  \log    \frac {p_ {\theta }(\mathbf{x}_{0:T})}{q(\mathbf{x}_{1:T}\vert\mathbf{x}_{0})}]  =  \mathbb{E}_ {q}  [-  \log p(\mathbf{x}_ {T})-  \sum \limits_ {t \geq 1}  {\log }   \frac {p_ {\theta }(\mathbf{x}_ {t-1}\vert\mathbf{x}_ {t})}{q(\mathbf{x}_ {t}\vert\mathbf{x}_ {t-1})} ] =: L \qquad (5)$			
+$$ \mathbb{E}[-  \log   p_ {\theta }  (  \mathbf{x}_ {0}  )]  \leqslant   \mathbb{E}_ {q}  [-  \log    \frac {p_ {\theta }(\mathbf{x}_{0:T})}{q(\mathbf{x}_{1:T}\vert\mathbf{x}_{0})}]  =  \mathbb{E}_ {q}  [-  \log p(\mathbf{x}_ {T})-  \sum \limits_ {t \geq 1}  {\log }   \frac {p_ {\theta }(\mathbf{x}_ {t-1}\vert\mathbf{x}_ {t})}{q(\mathbf{x}_ {t}\vert\mathbf{x}_ {t-1})} ] =: L \qquad (5) $$			
 
 prof:
 
