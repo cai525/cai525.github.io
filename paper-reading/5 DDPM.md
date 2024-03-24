@@ -28,10 +28,8 @@ $$q( \mathbf{x}_ {1: T}\vert\mathbf{x}_ {0}  ):=\prod \limits^{T}_{t=1} q( x_ {t
 
 $q( \mathbf{x}_ {t}   \vert\mathbf{x}_ {0}  )= \mathcal{N}(  \mathbf{x}_ {t}  ;  \sqrt {\overline\alpha} _ {t}\mathbf{x}_ {0},  (1-  \overline\alpha _ {t}  )\mathbf{I})$				(2)
 
-<div style="text-align:left">
-    <img src="./img/ddpm/4.png" style="width:50%; float:left;">
-    <div style="margin-left:63%";>(3)<div>
-</div>
+<div align="left"><img src="./img/ddpm/4.png" height=80> (3)</div>
+
 
 
 其中 $\alpha_t := 1-\beta_t$,  $\overline\alpha_t :=\prod^{t}_{s=1}\alpha_s $
@@ -62,44 +60,42 @@ $\mathbb{E}[-  \log   p_ {\theta }  (  \mathbf{x}_ {0}  )]  \leqslant   \mathbb{
 
 prof:
 
-<div style="text-align:center"><img src="./img/ddpm/1.webp" style="width:60%"></div>
+<div align="left"><img src="./img/ddpm/1.webp" width=600></div>
 
 损失函数L可整理为:
 
-<div style="text-align:left">
-    <img src="./img/ddpm/3.png" style="width:60%; float:left;">
-    <div style="margin-left:63%";>(6)<div>
+<div align="left">
+    <img src="./img/ddpm/3.png" height=60> (6)
 </div>
+
 
 
 ### 2.2 预测噪声
 
 从(6)中，可以看到DDPM的训练目标是使得每一步的反向过程分布和正向传播后验分布尽可能接近(考虑到两个分布的方差是可以人为设定为一样，因此可以理解为让期望尽可能接近)。由于二者同为高斯分布，并且方差均为定值，易得KL散度为
 
-<div style="text-align:left">
-    <img src="./img/ddpm/5.png" style="width:40%; float:left;">
-    <div style="margin-left:63%";>(7)<div>
-</div>
+<div align="left">    <img src="./img/ddpm/5.png" width=400 ">	(7) </div>
+
 
 从(7)中可以看出，反向过程中模型需要做的就是预测前向过程的后验均值。当重参数化 $\mathbf{x}_t$ 为 $\mathbf{x}_t(\mathbf{x}_0, \mathbf \epsilon)=\sqrt{\overline \alpha_t}\mathbf{x}_0 + \sqrt{1-\overline \alpha_t}\mathbf \epsilon $ ,进一步化简(7)可得
 
-<div style="text-align:left">
-    <img src="./img/ddpm/6.png" style="width:60%; float:left;">
+<div align="left">
+    <img src="./img/ddpm/6.png" height=120 ">
 </div>
+
+
 
 
 
 我们可以按照 $\widetilde u_t $ 的格式来参数化 $\widetilde u_\theta $ ,其中 $\epsilon_\theta(\mathbf{x}_t)$ 作为函数估计器，尝试估计噪声$\epsilon$ 。
 
-<div style="text-align:left">
-    <img src="./img/ddpm/7.png" style="width:60%; float:left;">
+<div align="left">
+    <img src="./img/ddpm/7.png" height=50 ">
 </div>
+
 利用(11)式，可以简化(10)为
 
-<div style="text-align:left">
-    <img src="./img/ddpm/8.png" style="width:35%; float:left;">
-    <div style="margin-left:40%";>(12)<div>
-</div>
+<div align="left"><img src="./img/ddpm/8.png" width=500"> (12)</div>
 
 
 
@@ -135,7 +131,7 @@ prof:
 
 本章从编码的角度来分析diffusion模型，为理解diffusion模型的本质提供了一个极好的视角。
 
-下图的算法从信息论的角度分析diffusion过程中的信息传递过程。考虑到信息的本质是消除不确定性，信息的量度应为收到图片后信源的熵(用 $p(x_0 \vert x_t)$)减去未收到图片前的熵 $p(x_0 \vert x_{t+1})$。图5中
+下图的算法从信息论的角度分析diffusion过程中的信息传递过程。考虑到信息的本质是消除不确定性，信息的量度应为收到图片后信源的熵(用 $p(x_0 \vert x_t)$)减去未收到图片前的熵 $p(x_0 \vert x_{t+1})​$。图5中
 
 - 图5.1: Distortion 指每个阶段的图片失真，可以看到随着反向过程的进行，失真程度越来越低；
 - 图5.2 : rate指描述各阶段表示图片包含信息的比特率，通过计算图片的熵来确定，随着重建的进行，图像比特率升高；
@@ -163,9 +159,12 @@ prof:
 
 注意到，DDPM的过程和自回归过程有着相似的操作，即均通过将模型输出不断的送回输入，循环往复，最终得到生成结果。公式(16) 更是表明，DDPM的损失函数在形式上和自回归解码高度相似。因而论文将DDPM解释为一种广义的自回归过程。作者认为，相比于以掩码作为加噪方式的传统自回归解码，高斯噪声更加自然，并且展现了更好的归纳偏置(如对细节的关注)。另一方面，基于mask的自回归解码的回归次数受限于序列长度，但加噪则可以是任意次数。因而高斯噪声加噪的DDPM可以缩短扩散轮次，提高速度，亦或是增加扩散轮次，提高质量。
 
-<div style="text-align:left">
-    <img src="./img/ddpm/10.png" style="width:60%; float:left;">
+<div align="left">
+    <img src="./img/ddpm/10.png" width=700>
 </div>
+
+
+
 
 > Bert 和 GPT中的 mask 可以视为广义上的加噪。
 
