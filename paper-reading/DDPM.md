@@ -24,7 +24,7 @@ Diffusion 的前向过程(forward process or diffusion process) 利用马尔可�
 
 $$q( \mathbf{x}_ {1: T}\vert\mathbf{x}_ {0}  ):=\prod \limits^{T}_{t=1} q( x_ {t} \vert\mathbf{x}_ {t-1}  )，q(   \mathbf{x}_t     \vert\mathbf{x}_{t-1}   ):=N( \mathbf{x}_t ; \sqrt {1-\beta_{t}}\mathbf{x}_ {t-1}   ,   \beta _ {t}   \mathbf{I}) \qquad  (1)$$
 
-从数学上可以推导出前向过程中任意轮次t时 x 的分布，以及已知 $\mathbf{x}_0$ 和 $\mathbf{x}_t$ 的条件下, $\mathbf{x}_{t-1}$ 的分布:
+从数学上可以推导出前向过程中任意轮次t时 x 的分布，以及已知 $x_{0}$ 和 $x_{t}$ 的条件下, $x_{t-1}$ 的分布:
 
 $$q( \mathbf{x}_ {t}   \vert\mathbf{x}_ {0}  )= \mathcal{N}(  \mathbf{x}_ {t}  ;  \sqrt {\overline\alpha} _ {t}\mathbf{x}_ {0},  (1-  \overline\alpha _ {t}  )\mathbf{I}) \qquad (2)$$				
 
@@ -72,7 +72,7 @@ prof:
 
 从(6)中，可以看到DDPM的训练目标是使得每一步的反向过程分布和正向传播后验分布尽可能接近(考虑到两个分布的方差是可以人为设定为一样，因此可以理解为让期望尽可能接近)。由于二者同为高斯分布，并且方差均为定值，易得KL散度为
 
-<div align="left">    <img src="./img/ddpm/5.png" width=400 ">	(7) </div>
+<div align="left">    <img src="./img/ddpm/5.png" width=400>	(7) </div>
 
 
 从(7)中可以看出，反向过程中模型需要做的就是预测前向过程的后验均值。当重参数化 $\mathbf{x}_t$ 为 $\mathbf{x}_t(\mathbf{x}_0, \mathbf \epsilon)=\sqrt{\overline \alpha_t}\mathbf{x}_0 + \sqrt{1-\overline \alpha_t}\mathbf \epsilon $ ,进一步化简(7)可得
