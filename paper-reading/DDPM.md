@@ -22,23 +22,21 @@ sort: 5
 
 Diffusion 的前向过程(forward process or diffusion process) 利用马尔可夫链，逐步向原始数据中添加高斯噪声。
 
-$$q( \mathbf{x}_ {1: T}\vert\mathbf{x}_ {0}  ):=\prod \limits^{T}_{t=1} q( x_ {t} \vert\mathbf{x}_ {t-1}  )，q(   \mathbf{x}_t     \vert\mathbf{x}_{t-1}   ):=N( \mathbf{x}_t ; \sqrt {1-\beta_{t}}\mathbf{x}_ {t-1}   ,   \beta _ {t}   \mathbf{I})$$		(1)
+$$q( \mathbf{x}_ {1: T}\vert\mathbf{x}_ {0}  ):=\prod \limits^{T}_{t=1} q( x_ {t} \vert\mathbf{x}_ {t-1}  )，q(   \mathbf{x}_t     \vert\mathbf{x}_{t-1}   ):=N( \mathbf{x}_t ; \sqrt {1-\beta_{t}}\mathbf{x}_ {t-1}   ,   \beta _ {t}   \mathbf{I}) \qquad  (1)$$
 
-从数学上可以推导出前向过程中任意轮次t时 x 的分布，以及已知$\mathbf{x}_0$和 $\mathbf{x}_t$ 的 条件下，$\mathbf{x}_{t-1}$的分布:
+从数学上可以推导出前向过程中任意轮次t时 x 的分布，以及已知 $\mathbf{x}_0$ 和 $\mathbf{x}_t$ 的条件下，$\mathbf{x}_{t-1}$ 的分布:
 
-$q( \mathbf{x}_ {t}   \vert\mathbf{x}_ {0}  )= \mathcal{N}(  \mathbf{x}_ {t}  ;  \sqrt {\overline\alpha} _ {t}\mathbf{x}_ {0},  (1-  \overline\alpha _ {t}  )\mathbf{I})$				(2)
+$$q( \mathbf{x}_ {t}   \vert\mathbf{x}_ {0}  )= \mathcal{N}(  \mathbf{x}_ {t}  ;  \sqrt {\overline\alpha} _ {t}\mathbf{x}_ {0},  (1-  \overline\alpha _ {t}  )\mathbf{I}) \qquad (2)$$				
 
 <div align="left"><img src="./img/ddpm/4.png" height=80> (3)</div>
-
-
 
 其中 $\alpha_t := 1-\beta_t$,  $\overline\alpha_t :=\prod^{t}_{s=1}\alpha_s $
 
 
 
-反向过程(Reverse process)中，从 $\mathbf{x}_T\sim \mathcal{N}(\mathbf{x}_T;\mathbf{0},\mathbf{I})$ 中采样，并利用公式)(2)进行去噪，以恢复原始图片，如下所示
+反向过程(Reverse process)中，从 $\mathbf{x}_T\sim \mathcal{N}(\mathbf{x}_T;\mathbf{0},\mathbf{I})$ 中采样，并利用公式(2)进行去噪，以恢复原始图片，如下所示
 
-$$p_{\theta}(\mathbf{x}_ {0:T}  ):=p(\mathbf{x}_T)\prod \limits^{T}_{t=1} p_{\theta}( x_ {t-1} \vert\mathbf{x}_ {t}  )，  p_ {\theta }  (  \mathbf{x}_{t-1}  \vert\mathbf{x}_t  ):=N(  \mathbf{x}_ {t  -1};  \mathbf{\mu} _ {\theta }  (  \mathbf{x}_ {t}  ,t),  \Sigma_ {\theta }  ( \mathbf{x}_ {t} ,t)) $$		(4)
+$$p_{\theta}(\mathbf{x}_ {0:T}  ):=p(\mathbf{x}_T)\prod \limits^{T}_{t=1} p_{\theta}( x_ {t-1} \vert\mathbf{x}_ {t}  )，  p_ {\theta }  (  \mathbf{x}_{t-1}  \vert\mathbf{x}_t  ):=N(  \mathbf{x}_ {t  -1};  \mathbf{\mu} _ {\theta }  (  \mathbf{x}_ {t}  ,t),  \Sigma_ {\theta }  ( \mathbf{x}_ {t} ,t)) \qquad (4) $$		
 
 其中 $\theta$ 代表模型参数。方差 $\Sigma_ {\theta }  ( \mathbf{x}_ {t} ,t)$ 一般取固定值 $\sigma_t^2 \mathbf{I}$ , 而 实验表明 $\sigma_t^2$  取 $ \widetilde\beta_t$ 和 $\frac{1-\overline \alpha_{t-1}}{1-\overline \alpha_{t}}\beta_t$结果相近，都是可供选择的取值。 
 
@@ -56,7 +54,7 @@ $$p_{\theta}(\mathbf{x}_ {0:T}  ):=p(\mathbf{x}_T)\prod \limits^{T}_{t=1} p_{\th
 
 diffusion 属于基于似然的生成式方法，其目标是优化负对数似然的变分上界:
 
-$\mathbb{E}[-  \log   p_ {\theta }  (  \mathbf{x}_ {0}  )]  \leqslant   \mathbb{E}_ {q}  [-  \log    \frac {p_ {\theta }(\mathbf{x}_{0:T})}{q(\mathbf{x}_{1:T}\vert\mathbf{x}_{0})}  =  \mathbb{E}_ {q}  [-  \log p(\mathbf{x}_ {T})-  \sum \limits_ {t \geq 1}  {\log }   \frac {p_ {\theta }(\mathbf{x}_ {t-1}\vert\mathbf{x}_ {t})}{q(\mathbf{x}_ {t}\vert\mathbf{x}_ {t-1})} ] =: L$			(5)
+$\mathbb{E}[-  \log   p_ {\theta }  (  \mathbf{x}_ {0}  )]  \leqslant   \mathbb{E}_ {q}  [-  \log    \frac {p_ {\theta }(\mathbf{x}_{0:T})}{q(\mathbf{x}_{1:T}\vert\mathbf{x}_{0})}]  =  \mathbb{E}_ {q}  [-  \log p(\mathbf{x}_ {T})-  \sum \limits_ {t \geq 1}  {\log }   \frac {p_ {\theta }(\mathbf{x}_ {t-1}\vert\mathbf{x}_ {t})}{q(\mathbf{x}_ {t}\vert\mathbf{x}_ {t-1})} ] =: L \qquad (5)$			
 
 prof:
 
@@ -80,22 +78,20 @@ prof:
 从(7)中可以看出，反向过程中模型需要做的就是预测前向过程的后验均值。当重参数化 $\mathbf{x}_t$ 为 $\mathbf{x}_t(\mathbf{x}_0, \mathbf \epsilon)=\sqrt{\overline \alpha_t}\mathbf{x}_0 + \sqrt{1-\overline \alpha_t}\mathbf \epsilon $ ,进一步化简(7)可得
 
 <div align="left">
-    <img src="./img/ddpm/6.png" height=120 ">
+    <img src="./img/ddpm/6.png" height=120>
 </div>
-
-
 
 
 
 我们可以按照 $\widetilde u_t $ 的格式来参数化 $\widetilde u_\theta $ ,其中 $\epsilon_\theta(\mathbf{x}_t)$ 作为函数估计器，尝试估计噪声$\epsilon$ 。
 
 <div align="left">
-    <img src="./img/ddpm/7.png" height=50 ">
+    <img src="./img/ddpm/7.png" height=50>
 </div>
 
 利用(11)式，可以简化(10)为
 
-<div align="left"><img src="./img/ddpm/8.png" width=500"> (12)</div>
+<div align="left"><img src="./img/ddpm/8.png" width=500> (12)</div>
 
 
 
