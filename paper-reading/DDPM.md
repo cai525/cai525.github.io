@@ -6,15 +6,13 @@ sort: 5
 
 # Denoising Diffusion Probabilistic Models(DDPM)
 
-扩散模型在2015被提出[^1]。本文的贡献在于
+扩散模型并非是本文提出的新算法 [^1]，而本文在扩散模型的发展历程中无疑是里程碑式的工作。本文的贡献在于
 
 - 给出了扩散模型严谨的数学推导;
 
-- 分析了DDPM和去噪得分匹配之间的关系，提出了预测噪声的训练目标；
+- 通过将扩散模型和去噪得分匹配之间建立关系，提出了预测噪声的训练目标；
 
 - 并且首先证明了扩散模型可以生成高质量的样本。
-
-
 
 
 
@@ -34,14 +32,14 @@ $$q( \mathbf{x}_ {t}   \vert\mathbf{x}_ {0}  )= \mathcal{N}(  \mathbf{x}_ {t}  ;
 
 
 
-反向过程(Reverse process)中，从 $\mathbf{x}_T\sim \mathcal{N}(\mathbf{x}_T;\mathbf{0},\mathbf{I})$ 中采样，并利用公式(2)进行去噪，以恢复原始图片，如下所示
+反向过程(Reverse process)中，从 $\mathbf{x}_T\sim \mathcal{N}(\mathbf{x}_T;\mathbf{0},\mathbf{I})$ 中采样，并利用公式(4)进行去噪，以得到生成的图片，如下所示
 
 $$p_{\theta}(\mathbf{x}_ {0:T}  ):=p(\mathbf{x}_T)\prod \limits^{T}_{t=1} p_{\theta}( x_ {t-1} \vert\mathbf{x}_ {t}  )，  p_ {\theta }  (  \mathbf{x}_{t-1}  \vert\mathbf{x}_t  ):=N(  \mathbf{x}_ {t  -1};  \mathbf{\mu} _ {\theta }  (  \mathbf{x}_ {t}  ,t),  \Sigma_ {\theta }  ( \mathbf{x}_ {t} ,t)) \qquad (4) $$		
 
-其中 $\theta$ 代表模型参数。方差 $\Sigma_ {\theta }  ( \mathbf{x}_ {t} ,t)$ 一般取固定值 $\sigma_t^2 \mathbf{I}$ , 而 实验表明 $\sigma_t^2$  取 $ \widetilde\beta_t$ 和 $\frac{1-\overline \alpha_{t-1}}{1-\overline \alpha_{t}}\beta_t$结果相近，都是可供选择的取值。 
+其中 $\theta$ 代表模型参数。方差 $\Sigma_ {\theta }  ( \mathbf{x}_ {t} ,t)$ 一般取固定值 $\sigma_t^2 \mathbf{I}$ , 而实验表明 $\sigma_t^2$  取 $ \widetilde\beta_t$ 和 $\frac{1-\overline \alpha_{t-1}}{1-\overline \alpha_{t}}\beta_t$结果相近，都是可供选择的取值。 
 
 > 1. Data scaling：这里的图片数据x被线性缩放到了[-1, 1]的区间内；
-> 2. 扩散过程中，涉及的的参数 $\beta_{t}$是预先设定的，本文设定该参数从 $\beta_{1}=10^{-4}$ 线性增长到  $\beta_{T}=0.02$ 。 注意到 $\beta$ 是一个相对较小的值。
+> 2. 扩散过程中，涉及的的参数 $\beta_{t}$是预先设定的超参数，本文设定该参数从 $\beta_{1}=10^{-4}$ 线性增长到  $\beta_{T}=0.02$ 。 注意到 $\beta$ 是一个相对较小的值。
 > 3. 在前向传播过程中，由于 $ \sqrt {1-\beta_{t}} < 1$ , 因此在前向过程， x中的信号分量值逐渐减小，逐步从原始数据分布转变到正态分布:
 
 <div style="text-align:center"><img src="./img/ddpm/2.jpg" style="width:50%"></div>
@@ -70,12 +68,12 @@ prof:
 
 ### 2.2 预测噪声
 
-从(6)中，可以看到DDPM的训练目标是使得每一步的反向过程分布和正向传播后验分布尽可能接近(考虑到两个分布的方差是可以人为设定为一样，因此可以理解为让期望尽可能接近)。由于二者同为高斯分布，并且方差均为定值，易得KL散度为
+从(6)中，可以看到DDPM的训练目标是使得每一步的反向过程分布和正向传播的后验分布尽可能接近(考虑到两个分布的方差是可以人为设定为一样，因此可以理解为让期望尽可能接近)。由于二者同为高斯分布，并且方差均为定值，易得KL散度为
 
 <div align="left">    <img src="./img/ddpm/5.png" width=400>	(7) </div>
 
 
-从(7)中可以看出，反向过程中模型需要做的就是预测前向过程的后验均值。当重参数化 $\mathbf{x}_t$ 为 $\mathbf{x}_t(\mathbf{x}_0, \mathbf \epsilon)=\sqrt{\overline \alpha_t}\mathbf{x}_0 + \sqrt{1-\overline \alpha_t}\mathbf \epsilon $ ,进一步化简(7)可得
+从(7)中可以看出，反向过程中模型需要做的就是预测前向过程的后验均值。当重参数化 $\mathbf{x}_t$ 为 $\mathbf{x}_t(\mathbf{x}_0, \mathbf \epsilon)=\sqrt{\overline \alpha_t}\mathbf{x}_0 + \sqrt{1-\overline \alpha_t}\mathbf \epsilon $ , 带入(3)以进一步化简(7)可得
 
 <div align="left">
     <img src="./img/ddpm/6.png" height=120>
@@ -97,7 +95,7 @@ prof:
 
 ### 2.3 简化的训练目标
 
-注意到公式(12)的损失函数项前有系数项。将系数项删除，可以简化损失函数的形。这在本质上相当于针对不同时间T，对损失函数做加权，如下图所示。t比较小时(即加噪不足够充分时)，权重较小；而对t较大时的项数，给予大权重。从之后的分析可以看出，t较小时，模型主要进行感知压缩(perceptual compression)，而t较大时进行语义压缩(semantic compression)。重加权更加强调了模型对语义层面的学习。
+注意到公式(12)的损失函数项前有系数项。将系数项删除，可以使损失函数形式上更加简洁。这在本质上相当于针对不同时间T，对损失函数做加权，如下图所示。t比较小时(即加噪不足够充分时)，权重较小；而对t较大时的项数，给予大权重。从之后的分析可以看出，t较小时，模型主要进行感知压缩(perceptual compression)，而t较大时进行语义压缩(semantic compression)。重加权更加强调了模型对语义层面的学习。
 
 <div style="text-align: center">
     <img src="./img/ddpm/weight.png" style="width:35%;">
@@ -127,7 +125,7 @@ prof:
 
 本章从编码的角度来分析diffusion模型，为理解diffusion模型的本质提供了一个极好的视角。
 
-下图的算法从信息论的角度分析diffusion过程中的信息传递过程。考虑到信息的本质是消除不确定性，信息的量度应为收到图片后信源的熵(用 $p(x_0 \vert x_t)$)减去未收到图片前的熵 $p(x_0 \vert x_{t+1})​$。图5中
+下图的算法从信息论的角度分析diffusion过程中的信息传递过程。考虑到信息的本质是消除不确定性，信息的量度应为收到图片后信源的熵(用 $p(x_0 \vert x_t)$)减去未收到图片前的熵 $p(x_0 \vert x_{t+1})$。图5中
 
 - 图5.1: Distortion 指每个阶段的图片失真，可以看到随着反向过程的进行，失真程度越来越低；
 - 图5.2 : rate指描述各阶段表示图片包含信息的比特率，通过计算图片的熵来确定，随着重建的进行，图像比特率升高；
