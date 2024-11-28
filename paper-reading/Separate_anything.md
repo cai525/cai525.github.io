@@ -44,9 +44,9 @@ SeparationNet 采用 frequency-domain ResUNet model, 如下图所示。该网络
 
 $$X = |X|e^{j\angle X}$$
 
- 和下图不完全一致的是，这里网络输入复数谱X(包含实部和虚部两个通道)，输出文本查询对应的 magnitude mask $M$ 和 phase residual $\angle M$。目标音频的复频谱可以通过以下公式得到:
+ 和下图不完全一致的是，这里网络输入复数谱X(包含实部和虚部两个通道)，输出文本查询对应的 magnitude mask $M​$ 和 phase residual $\angle M​$。目标音频的复频谱可以通过以下公式得到:
 
-$S=M \odot X =|M|\odot|X|e^{j(\angle M + \angle X)}$
+$$S=M \odot X =|M|\odot|X|e^{j(\angle M + \angle X)}$$
 
 
 
