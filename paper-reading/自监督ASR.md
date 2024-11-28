@@ -31,7 +31,7 @@ We train the model to distinguish a sample $z_{i+k}$ that is k steps in the futu
 We optimize the loss $L = \sum_{k=1}^{K}L_k$, summing (1) over different step sizes.
 
 - 即让预测 $h_k(c_i)$ 和  标签 $z_{i+k}$ 余弦相似度尽可能高，和随机采样的 余弦相似度尽可能低；
-- 注意这里预测目标是连续的,没有量化；
+- 注意这里预测目标是连续的,没有量化 (同之后工作, 如VQ-wav2vec, wav2vec2的重要区别)；
 - 本文取K=12；
 
 ### 1.2.2 模型结构
@@ -50,21 +50,36 @@ We optimize the loss $L = \sum_{k=1}^{K}L_k$, summing (1) over different step si
 
 
 
-## 2. wav2vec2.0[^2]
+## 2. VQ-wav2vec
+
+<div align="center"><img src="./img/self-sup/vq-wav2vec.png" width=600></div>
+
+本文承接上文的wav2vec，在上文的编码器和上下文网络之间添加了量化模块，对来自编码器的特征进行量化，以便使用来自NLP领域的一些方法。具体来说，本文使用了如下两种量化策略: 
+
+- 基于 Gumbel softmax : 类似于查找表，编码器的表征通过MLP获得不同码字的概率 (logit)。之后通过gumbel softmax后采样，从查找表里面获取对应的码字。
+- 类似VQ-VAE的在线 K-means模块，在线的进行聚类。
+
+此外，本文还讨论了分组量化策略对避免码本的模式塌陷中发挥的作用。本文的工作是之后的wav2vec2的基础。
+
+<div align="center"><img src="./img/self-sup/vq-methods.png" width=600></div>
+
+
+
+## 3. wav2vec2.0[^2]
 
 <font color="red">We show for the first time that learning powerful representations from speech audio alone followed by fine-tuning on transcribed speech can outperform the best semi-supervised methods while being conceptually simpler.</font>
 
 本文第一次展示了从语音信号中学习强大的表征，并在转录的语音上微调，可以取得超过最好的半监督方法的结果，并且在概念上更简单。
 
-### 2.1 动机
+### 3.1 动机
 
-1. Neural networks benefit from large quantities of labeled training data. However, in many settings labeled data is much harder to come by than unlabeled data；
-2. Learning purely from labeled examples does not resemble language acquisition in humans: infants learn language by listening to adults around them - a process that requires learning good representations of speech.
+1. 神经网络受益于大量标记的训练数据。然而，在许多情况下，有标记数据比未标记数据更难获得；
+2. 单纯从有标记数据中进行学习的范式与人类的学习语言的方式不同：婴儿通过聆听周围成年人的说话来无监督的学习语言——这个过程婴儿可以学到良好的言语表征；
 3. 自监督方法在NLP和自然语言处理领域已经得到了相当广泛的应用，证明了其有效性；
 
 
 
-### 2.2 方法
+### 3.2 方法
 
 - 编码器：七层CNN；
 
@@ -89,9 +104,15 @@ We optimize the loss $L = \sum_{k=1}^{K}L_k$, summing (1) over different step si
     其中 $\mathcal{L}_m $ 是对比损失（Contrastive Loss），用于计算对掩码部分预测的准确度；$\mathcal{L}_d$ 是多样性损失，通过最大化码本的熵来鼓励码本中使用不同的向量，以避免所有表征取同一向量导致对比损失的塌陷；
 
 
-## 3. HuBert[^3]
 
-### 3.1 动机
+### 3.3 其他细节
+
+1. wav2vec2 的CNN编码器接受 raw waveforme 而不是梅尔谱，代码见[该处](https://github.com/facebookresearch/fairseq/blob/d9a627082fd03ec72a27a31a4e56289bfcb2e4e4/fairseq/models/wav2vec/wav2vec2.py#L844)；
+
+
+## 4. HuBert[^3]
+
+### 4.1 动机
 
 自监督学习的意义：
 
@@ -107,7 +128,7 @@ We optimize the loss $L = \sum_{k=1}^{K}L_k$, summing (1) over different step si
 
 <div align="center"><img src="./img/self-sup/4.png" width=400></div>
 
-### 3.2 方法
+### 4.2 方法
 
 #### Representation Learning via Masked Prediction
 
@@ -129,13 +150,13 @@ HuBert利用多种聚类模型集成的方式制造伪标签。聚类方式采�
 
 
 
-### 3.3 实现细节
+### 4.3 实现细节
 
 During fine-tuning, the convolutional waveform audio encoder parameters are fixed. Like wav2vec 2.0, we introduce a freeze-step hyperparameter to control how many fine-tuning steps the transformer parameters are fixed, and only the new softmax matrix is trained.
 
 
 
-### 3.4 比较 wav2vec 和 HuBert
+### 4.4 比较 wav2vec 和 HuBert
 
 wav2vec 和 Hubert 都使用了掩码预测的任务进行自监督预训练。两者区别在于：
 
