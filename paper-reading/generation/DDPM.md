@@ -1,5 +1,5 @@
 ---
-sort: 5
+sort: 4
 ---
 
 <div align="center"><img src="./img/ddpm/illustration.png" style="width:80%"></div>
@@ -166,7 +166,7 @@ prof:
 
 ### 3.2 和自回归解码的关系
 
-注意到，DDPM的过程和自回归过程有着相似的操作，即均通过将模型输出不断的送回输入，循环往复，最终得到生成结果。论文将DDPM解释为一种广义的自回归过程 :当T=数据维度，而每一次加噪，只是添加一个维度（*“defining the forward process so that $q(x_t|x_0)$ places all probability mass on $x_0$ with the first t coordinates masked out (i.e. $q(x_t|x_{t−1})$ masks out the tth coordinate)”*） , 此时该过程等价于自回归过程;
+注意到，DDPM的过程和自回归过程有着相似的操作，即均通过将模型输出不断的送回输入，循环往复，最终得到生成结果。论文将DDPM解释为一种广义的自回归过程 :当T=数据维度，而每一次加噪，只是添加一个维度（*“defining the forward process so that $q(x_t \vert x_0)$ places all probability mass on $x_0$ with the first t coordinates masked out (i.e. $q(x_t \vert x_{t−1})$ masks out the tth coordinate)”*） , 此时该过程等价于自回归过程;
 
 作者认为，相比于以掩码作为加噪方式的传统自回归解码，高斯噪声更加自然，并且展现了更好的归纳偏置(如对细节的关注)。另一方面，基于mask的自回归解码的回归次数受限于序列长度，但加噪则可以是任意次数。因而高斯噪声加噪的DDPM可以缩短扩散轮次，提高速度，亦或是增加扩散轮次，提高质量。
 

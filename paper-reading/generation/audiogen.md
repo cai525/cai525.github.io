@@ -1,5 +1,5 @@
 ---
-sort: 8
+sort: 7
 ---
 
 # AUDIOGEN: TEXTUALLY GUIDED AUDIO GENERATION
