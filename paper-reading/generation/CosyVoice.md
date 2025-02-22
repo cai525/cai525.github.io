@@ -20,7 +20,8 @@ sort: 8
 
 ## 2 方法
 
-<div align="center"><img src="./img/CosyVoice1.png" width=700>
+<div align="center"><img src="./img/CosyVoice1.png" width=700></div>
+
 
 ### 2.1 Supervised Semantic Tokens for Speech
 CosyVoice 从多语种的ASR模型中获取tokens, 作者认为这种做法比之前基于无监督的策略， 如Hubert等纯自监督的方法提取特征，更能编码语义等信息。
