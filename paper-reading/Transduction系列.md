@@ -56,7 +56,7 @@ RNN-T 中最早提出了 Transduction 结构，如下图所示:
 
 ### 2.3  训练与预测
 
-<div align="center"><img src="img/1699357960738.png" width=500></div>
+<div align="center"><img src="img/Transduction/1699357960738.png" width=500></div>
 
 上述模型的输出为一个上图所示的概率矩阵。网格中存在若干条路径，每条路径代表一个可能的输出序列。在所有的这些序列中，合法的序列是起点为左下角，终点为右上角的序列。所有的合法序列之和即为输入为 $\bf{x}$ 的条件下输出 $\bf{y}$ 的概率。我们的优化目标是要最大化 $P(\bf{y} 	\vert \bf{x})$ 。
 

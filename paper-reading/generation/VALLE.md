@@ -2,7 +2,11 @@
 sort: 6
 ---
 
-# VALLE: Neural Codec Language Models are Zero-Shot Text to Speech Synthesizers
+# VALLE
+
+VALLE: Neural Codec Language Models are Zero-Shot Text to Speech Synthesizers
+
+---
 
 VALLE 使用从已有的音频编解码器模型中获得的离散编码，以训练语言模型 。VALLE将 TTS 任务视为条件语言建模任务，而不是像以前的工作那样将 TTS 视为连续信号回归。在预训练阶段，本文将 TTS 训练数据扩展到 **60K 小时**的英语语音，这比现有系统大数百倍。VALL-E 具有上下文学习 (in-context learning) 能力，可用仅使用 3 秒的未见过的说话者的注册录音作为声音提示，来合成高质量的个性化语音。实验结果表明，VALL-E 在语音自然度和说话者相似性方面明显优于最先进的零样本 TTS 系统。此外，我们发现 VALL-E 可以在合成过程中保留说话者的情绪和声音提示的声学环境。
 

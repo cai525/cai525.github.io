@@ -2,9 +2,9 @@
 sort: 5
 ---
 
-# VITS: Conditional Variational Autoencoder with Adversarial Learning for End-to-End Text-to-Speech
+# VITS
 
-ICML 2021
+Conditional Variational Autoencoder with Adversarial Learning for End-to-End Text-to-Speech， ICML 2021
 
 本文之前主流的语音合成策略是二阶段的合成策略，基于单阶段训练和并行采样的端到端文本转语音 (TTS) 模型的样本质量要比两阶段 TTS 系统更差。本文提出了VITS, 一种并行端到端 TTS 方法，该方法可以生成比当前二阶段模型更自然的音频。VITS采用**变分推理**，并辅以**规范化流（normalizing flows）**和对抗训练，从而提高了生成模型的表达能力。我们还提出了一个**随机持续时间预测器 (stochastic duration predictor)**，用于从输入文本中合成具有不同节奏的语音。通过对潜在变量和随机持续时间预测器的不确定性建模，我们的方法表达了自然的一对多关系，其中文本输入可以以多种方式以不同的音调和节奏说出。对单个说话者数据集 LJ Speech 的主观人工评估（mean opinion score, MOS）表明，我们的方法优于最好的公开 TTS 系统，并实现了与真值相当的 MOS。
 
@@ -88,13 +88,15 @@ $$
 
 ### 2.4 模型结构
 
-- 后验编码器: non-causal WaveNet residual blocks. A WaveNet residual block consists of layers of dilated convolutions with a gated activation unit and skip connection. 最后由线性投影层得到 p(z\|x) 的均值和方差。对多说话人的情况，Wavenet 中的全局条件(global conditioning) 在残差网络中被使用，如下所示:
-  $$
-  z = \tanh \left( W_{f,k} * x + V_{f,k}^T h \right) \odot \sigma \left( W_{g,k} * x + V_{g,k}^T h \right)
-  $$
-  其中 h 是条件，具体来说是对应说话人的嵌入, 可以由声纹模型获得；
+- 后验编码器: non-causal WaveNet residual blocks. A WaveNet residual block consists of layers of dilated convolutions with a gated activation unit and skip connection. 最后由线性投影层得到 p(z\|x) 的均值和方差。对多说话人的情况，Wavenet 中的全局条件(global conditioning) 在残差网络中被使用，如下所示,  其中 h 是条件，具体来说是对应说话人的嵌入, 可以由声纹模型获得：
 
-- 后验编码器: 由 vanilla Transformer 构成的文本编码器将音素编码序列 $c_{text}​$ 编码为 $h_{text}​$ ，之后一个线性投影层将 $h_{text}​$ 转化为先验概率p(z\|c)的均值和方差。
+$$
+z = \tanh \left( W_{f,k} * x + V_{f,k}^T h \right) \odot \sigma \left( W_{g,k} * x + V_{g,k}^T h \right)
+$$
+
+
+
+- 后验编码器: 由 vanilla Transformer 构成的文本编码器将音素编码序列 $c_{text}$ 编码为 $h_{text}$ ，之后一个线性投影层将 $h_{text}$ 转化为先验概率p(z\|c)的均值和方差。
 
 - Flow 层:  "The normalizing flow is a stack of affine coupling layers  consisting of a stack of WaveNet residual blocks"， 具体如下图所示。多说话人的情况下，说话人嵌入也被通过 global conditioning 引入到了 flow 结构中。
 
