@@ -4,6 +4,8 @@ sort: 3
 
 # 基于whisper的ASR服务器
 
+<font size=3><b>发布时间：2024-4-1 </b></font>
+
 该项目旨在实现一个用于语音识别(Automatic Speech Recognition)服务器，使用 openai 的 **[whisper]((https://github.com/openai/whisper))** 模型进行语音识别。用户可通过浏览器访问网站，使用类似微信语音聊天的界面来进行识别，如下图所示。
 
 项目见：[cai525/whisper-based-ASR-server (github.com)](https://github.com/cai525/whisper-based-ASR-server)

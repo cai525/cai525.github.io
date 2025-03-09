@@ -2,7 +2,7 @@
 sort: 1
 ---
 
-# Transduction 系列模型
+# Transducer 系列模型
 
 语音识别的一大难点在于其 输入(音频) 和 输出(文本) 之间并不是等长的。如何处理输入和输出之间对齐关系是 ASR 中的核心问题之一。
 
@@ -14,13 +14,13 @@ CTC 是早期的 语音识别方案，其结构如下所示。在CTC结构中，
 
 
 
-该结构的缺点在于，每一次的输出都是独立决定的，仅和当前的嵌入向量有关。 这是我们不希望看到的。
-
 <div align="center"><img src="img/Transduction/1699339812676.png" width=500></div>
 
-Transduction 系列结构通过将输入序列和输出序列分别编码的方式，以实现输入和输出序列之间的对齐。
+CTC 的训练中，可以通过引入简单的语言模型，例如 n-gram, 来提高ASR模型生成句子的合理性。但问题是其语言模型和声学模型是两个分离的独立结构。CTC的另一个缺点在于CTC存在累积效应, 即训练的模型对各个音素的可能性预测是尖峰似的，当每个音素的信息积累到一定程度才“蹦”出较高的概率。
 
+RNN-T通过改进结构，使得系统可以同时显性地学习语言模型，使得声学模型和语言模型能够真正地统一学习，进一步促进系统性能。
 
+<div align="center"><img src="img/Transduction/compare_with_ctc.png" width=400></div>
 
 
 
@@ -28,11 +28,11 @@ Transduction 系列结构通过将输入序列和输出序列分别编码的方�
 
 ### 2.1 对齐方式
 
-在讨论具体结构之前，首先先来了解Transduction 的对齐方式。Transduction 将状态切换以外的其他位置都标记为  $ \empty $ , 如 $y_1, y_2, y_3$ 和序列 $y_1, \empty , \empty , y_2 , \empty , y_3$ 等价。 
+在讨论具体结构之前，首先先来了解Transducer  的对齐方式。Transducer  将状态切换以外的其他位置都标记为  $ \empty $ , 如 $y_1, y_2, y_3$ 和序列 $y_1, \empty , \empty , y_2 , \empty , y_3$ 等价。 
 
 ###  2.2 结构
 
-RNN-T 中最早提出了 Transduction 结构，如下图所示:
+RNN-T 中最早提出了 Transducer  结构，如下图所示:
 
 <div align="center"><img src="img/Transduction/1699342497724.png" width=500></div>
 
@@ -76,11 +76,11 @@ RNN-T 中最早提出了 Transduction 结构，如下图所示:
 
 <div align="center"><img src="img/Transduction/1699359473618.png" width=600></div>
 
-由于从起点到终点，一定会经过从图的左上角到右下角的写对角线，我们可以据此分解概率如下：
+由于从起点到终点，一定会经过从图的左上角到右下角的斜对角线，我们可以据此分解概率如下：
 
 <div align="center"><img src="img/Transduction/1699360651608.png" width=300></div>
 
-事实上这不是唯一的计算方式。也可以用 $\alpha(T,U)$ 的值作为优化目标（之后的transformer-Transduction 就是这么做的）。
+事实上这不是唯一的计算方式。也可以用 $\alpha(T,U)$ 的值作为优化目标（之后的transformer-Transducer  就是这么做的）。
 
 在非流式的预测过程中，音频编码器输入完整的音频，得到音频嵌入特征。文本编码端(或者按照有些论文的说法，解码器端) 最开始输入\<SOS\> 标识（start of sentence）。解码的过程从音频特征的开始循环到结束，每次循环得到文本序列中下一个文本的概率。如果采用贪心法编码，则将每次预测结果中可能性最大的状态作为下一状态，如以下代码所示：
 

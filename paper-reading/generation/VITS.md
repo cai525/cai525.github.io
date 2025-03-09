@@ -54,7 +54,9 @@ $$
 - 损失在梅尔谱空间上计算，由于梅尔谱和人的感官更一致；而输入则是提供的线性谱，因为其分辨率更高，提供更多的信息；
 - 在实际训练过程中，在解码器端使用加窗的训练策略，每次只将隐变量z的一部分送到解码器中。这种做法的可能好处:
   - 提高训练效率, 降低内存占用，节省计算量;
+
   - 缓解长序列依赖， 关注局部特征： 长序列可能引入复杂的依赖关系，这并不是vocoder需要的特性。通过将长序列划分为多个窗口，模型可以更容易地学习局部特征；
+
   - 增强模型的泛化能力： 窗口化训练使模型能够在不同的上下文窗口中学习特征，从而提高了模型对未见数据的泛化能力;
 
 #### 2.1.2 KL 散度
@@ -62,7 +64,19 @@ $$
 KL散度的计算中，先验和后验编码器均采用了正态分布进行重参数化处理。
 
 - 先验编码器 (文本编码器) 的输出长度小于特征z在时间维度的长度。实验中通过单调的对齐矩阵 A 来确定每一个音素的持续时间。矩阵A的求法见下一节。
-- 对特征z还采用了一个额外的 Flow 来做对其分布做转化，以更好的对齐先验和后验分布。
+
+- 对特征z还采用了一个额外的 Flow 来做对其分布做转化，以更好的对齐先验和后验分布:
+  $$
+  \begin{align}
+      p_{\theta}(z|c) &= \mathcal{N} \big( f_{\theta}(z); \mu_{\theta}(c), \sigma_{\theta}(c) \big) 
+      \left| \det \frac{\partial f_{\theta}(z)}{\partial z} \right|, \\
+      c &= [c_{\text{text}}, A]
+  \end{align}
+  $$
+
+
+
+- 注意到由于先验分布采用 flow 之后，并不满足高斯分布，所以无法使用简单的基于高斯分布的KL散度来计算该项;
 
 ### 2.2 对齐估计(Alignment Estimation)
 
@@ -99,6 +113,10 @@ $$
 - 后验编码器: 由 vanilla Transformer 构成的文本编码器将音素编码序列 $c_{text}$ 编码为 $h_{text}$ ，之后一个线性投影层将 $h_{text}$ 转化为先验概率p(z\|c)的均值和方差。
 
 - Flow 层:  "The normalizing flow is a stack of affine coupling layers  consisting of a stack of WaveNet residual blocks"， 具体如下图所示。多说话人的情况下，说话人嵌入也被通过 global conditioning 引入到了 flow 结构中。
+
+  此外，"For simplicity, we design the normalizing flow to be a **volume-preserving transformation** with the Jacobian determinant of one"。
+
+  即这里作者控制了flow的雅可比行列式的值恒为1，所以损失计算时不需要考虑行列式项;
 
 <div align="center"><img src="./img/VITS2.png" width=500></div>
 
