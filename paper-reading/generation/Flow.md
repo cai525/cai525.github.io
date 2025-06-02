@@ -18,15 +18,108 @@ $$p_{G}(x)=\left| J_{G^{-1}} \right|\pi(G^{-1}(x))  $$
 
 <div align="center"><img src="./img/flow/flow2.png" width=400></div>
 
+### 伪代码实现
+
+从伪代码可以看出，通过 Normalizing Flows 可以得到样本x对应的概率，该概率作为优化目标。
+
+```python
+import torch
+import torch.nn as nn
+import torch.optim as optim
+import torch.nn.functional as F
+
+# 1. Coupling Layer: 采用 RealNVP 风格的 Affine Coupling
+class AffineCoupling(nn.Module):
+    def __init__(self, in_channels):
+        super().__init__()
+        self.scale_net = nn.Sequential(
+            nn.Conv2d(in_channels // 2, in_channels, kernel_size=3, padding=1),
+            nn.ReLU(),
+            nn.Conv2d(in_channels, in_channels // 2, kernel_size=3, padding=1),
+            nn.Tanh()  # 输出 scale
+        )
+        self.translate_net = nn.Sequential(
+            nn.Conv2d(in_channels // 2, in_channels, kernel_size=3, padding=1),
+            nn.ReLU(),
+            nn.Conv2d(in_channels, in_channels // 2, kernel_size=3, padding=1)
+        )
+    
+    def forward(self, x, reverse=False):
+        x1, x2 = x.chunk(2, dim=1)  # Split channels
+        s = self.scale_net(x1)
+        t = self.translate_net(x1)
+        if not reverse:
+            x2 = x2 * torch.exp(s) + t
+        else:
+            x2 = (x2 - t) * torch.exp(-s)
+        return torch.cat([x1, x2], dim=1), torch.sum(s, dim=[1, 2, 3])  # 返回 log-determinant
+
+# 2. Normalizing Flow Model
+class RealNVP(nn.Module):
+    def __init__(self, in_channels, num_flows=4):
+        super().__init__()
+        self.flows = nn.ModuleList([AffineCoupling(in_channels) for _ in range(num_flows)])
+
+    def forward(self, x):
+        log_det_jacobian = 0
+        for flow in self.flows:
+            x, log_det = flow(x, reverse=False)
+            log_det_jacobian += log_det
+        return x, log_det_jacobian
+
+    def reverse(self, z):
+        for flow in reversed(self.flows):
+            z, _ = flow(z, reverse=True)
+        return z
+
+# 3. 训练函数
+def train(model, data_loader, optimizer, num_epochs=10):
+    model.train()
+    for epoch in range(num_epochs):
+        for x in data_loader:
+            x = x.to(device)
+            z, log_det = model(x)
+            log_p_z = -0.5 * torch.sum(z ** 2, dim=[1, 2, 3])  # 假设标准正态分布
+            loss = -torch.mean(log_p_z + log_det)  # 最大化对数似然
+            optimizer.zero_grad()
+            loss.backward()
+            optimizer.step()
+        print(f"Epoch {epoch+1}, Loss: {loss.item()}")
+
+# 4. 生成图像
+def generate_samples(model, num_samples=16):
+    z = torch.randn(num_samples, 3, 32, 32).to(device)  # 采样标准正态分布
+    samples = model.reverse(z)  # 通过逆变换生成
+    return samples
+
+# 初始化模型与优化器
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+model = RealNVP(in_channels=3, num_flows=6).to(device)
+optimizer = optim.Adam(model.parameters(), lr=1e-3)
+
+# 训练示例
+# data_loader = ...  # 假设我们有一个图像数据集的 DataLoader
+# train(model, data_loader, optimizer, num_epochs=10)
+
+# 生成图像示例
+# samples = generate_samples(model)
+# visualize(samples)  # 假设有一个可视化函数
+
+```
+
 
 
 ## 2 Continuous Normalizing Flows
 
-注意到在 residual flows 中，可以通过每次更新残差的方式，让分布逐渐从高斯分布变到目标分布。假设这一更新过程是连续的，而不是离散的，那么可以用以下形式表示更新:
+注意到在 residual flows 中，可以通过每次更新残差的方式，让分布逐渐从高斯分布变到目标分布。假设这一更新过程是连续的，而不是离散的。t 时刻的数据点 $x_t$ 经过模型的变换，在 $t+dt$  时刻变换为了 $x_{t+dt}$ , 则定义向量场 $u(x_t, \theta)$ 为 :
 
-$$\frac{dx_t}{dt}=u_t(x_t, \theta)$$
+$$\frac{dx_t}{dt}=u(x_t, \theta)$$
 
-在 Continuous Normalizing Flows 中，将 $u_t$ 称为向量场(Vector field)， 该方法将从数据从高斯分布演变到目标分布，视作为通过场来实现的，如下图所示
+其中向量场u 即为 ”流” (flow),  或称为向量场 (Vector field)。如果我们可以对向量场  $u_t (x_t, \theta)$ 进行建模，那么只需从 $x_0 \in N(0, \textbf{I})$  中随机采样，再通 过积分，就可以得到 $x_1$(当然，实际的积分是采用数值积分，过程是离散的) 
+$$
+x_1 = x_0 + \int_{0}^{1} u(x_t, \theta) dt
+$$
+总结来说，Continuous Normalizing Flows 将数据从高斯分布演变到目标分布的过程视作为通过场来实现的，如下图所示 (或点击查看 [gif demo](./img/flow/demo.mp4))
 
 <div align="center"><img src="./img/flow/flow3.png" width=400></div>
 
@@ -81,11 +174,7 @@ $$
 
 ### 3.4 与 Diffusion
 
-Flow match允许使用各种可微分函数来定义p和u ，所以可以根据不同的应用场景和边界条件选择合适的函数。例如，可以将 flow matching 与diffusion 结合[^3]。实验发现，将扩散模型条件向量场与Flow Matching目标结合起来优化，相比于现有的Score Matching方法，训练收敛更快更稳定[^4]。
-
-### 3.5 如何训练
-
-Flow matching 的训练过程如下。可以看到，该方法和diffusion的训练过程高度相似。所以说虽然二者来源可能不一样，但最后实践下来形式是高度相似的。
+Flow match允许使用各种可微分函数来定义p和u ，可以根据不同的应用场景和边界条件选择合适的函数。事实上，可以将 flow matching 与diffusion 统一到一套框架下[^3]。可以看到，下图中 flow-matching 的训练方法和diffusion的训练过程高度相似。所以说虽然二者来源可能不一样，但最后实践下来形式是高度相似的。
 
 <div align="center"><img src="./img/flow/flow8.png" width=600></div>
 

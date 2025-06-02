@@ -36,10 +36,10 @@ $$q( \mathbf{x}_ {t}   \vert\mathbf{x}_ {0}  )= \mathcal{N}(  \mathbf{x}_ {t}  ;
 
 $$p_{\theta}(\mathbf{x}_ {0:T}  ):=p(\mathbf{x}_T)\prod \limits^{T}_{t=1} p_{\theta}( x_ {t-1} \vert\mathbf{x}_ {t}  )，  p_ {\theta }  (  \mathbf{x}_{t-1}  \vert\mathbf{x}_t  ):=N(  \mathbf{x}_ {t  -1};  \mathbf{\mu} _ {\theta }  (  \mathbf{x}_ {t}  ,t),  \Sigma_ {\theta }  ( \mathbf{x}_ {t} ,t)) \qquad (4) $$		
 
-其中 $\theta$ 代表模型参数。方差 $\Sigma_ {\theta }  ( \mathbf{x}_ {t} ,t)$ 一般取固定值 $\sigma_t^2 \mathbf{I}$ , 而实验表明 $\sigma_t^2$  取 $ \widetilde\beta_t$ 和 $\frac{1-\overline \alpha_{t-1}}{1-\overline \alpha_{t}}\beta_t$结果相近，都是可供选择的取值。 
+其中 $\theta$ 代表模型参数。方差 $\Sigma_ {\theta }  ( \mathbf{x}_ {t} ,t)$ 一般取固定值 $\sigma_t^2 \mathbf{I}$ , 而实验表明 $\sigma_t^2$  取 $ \beta_t$ 和 $\frac{1-\overline \alpha_{t-1}}{1-\overline \alpha_{t}}\beta_t$结果相近，都是可供选择的取值。 
 
 > 1. Data scaling：这里的图片数据x被线性缩放到了[-1, 1]的区间内；
-> 2. 扩散过程中，涉及的的参数 $\beta_{t}$是预先设定的超参数，本文设定该参数从 $\beta_{1}=10^{-4}$ 线性增长到  $\beta_{T}=0.02$ 。 注意到 $\beta$ 是一个相对较小的值。
+> 2. 扩散过程中，涉及的的参数 $\beta_{t}​$是预先设定的超参数，本文设定该参数从 $\beta_{1}=10^{-4}​$ 线性增长到  $\beta_{T}=0.02​$ 。 注意到 $\beta​$ 是一个相对较小的值。
 > 3. 在前向传播过程中，由于 $ \sqrt {1-\beta_{t}} < 1$ , 因此在前向过程， x中的信号分量值逐渐减小，逐步从原始数据分布转变到正态分布:
 
 <div style="text-align:center"><img src="./img/ddpm/2.jpg" style="width:50%"></div>

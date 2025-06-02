@@ -52,7 +52,7 @@ $$S=M \odot X =|M|\odot|X|e^{j(\angle M + \angle X)}$$
 
 <div align="center"><img src="./img/Separate_anything/ResUNet.png" width=300></div>
 
-AudioSep应用 Feature-wise Linearly modulated (FiLm) layer, 用于将文本特征引入分离模型。不妨将音频特征表示为 $H^=\mathbb{R}^{m \times h \times w}$, 对第i层特征 $H_{i}$ 做以下操作: 
+AudioSep在每个ConvBlock之后应用 Feature-wise Linearly modulated (FiLm) layer, 以将文本特征引入分离模型。不妨将音频特征表示为 $H^=\mathbb{R}^{m \times h \times w}$, 对第i层特征 $H_{i}​$ 做以下操作: 
 
 $$FiLM(H_i|\gamma_i H_i, \beta_i) = \gamma_i H_i + \beta_i$$ 
 

@@ -46,9 +46,11 @@ $$
 #### 2.1.1 重建损失
 
 首先需要计算对数似然损失。由基本的机器学习知识可以知道，假设数据符合高斯分布时，最大化对数似然等价于最小化L2 loss; 而VITS则是假设数据符合拉普拉斯分布，则其重建损失 $L_{recon}$ 是L1 Loss
+
 $$
 L_{recon} = \Vert x_{mel}-\hat{x}_{mel}\Vert_{1}
 $$
+
 注:
 
 - 损失在梅尔谱空间上计算，由于梅尔谱和人的感官更一致；而输入则是提供的线性谱，因为其分辨率更高，提供更多的信息；
@@ -76,7 +78,7 @@ KL散度的计算中，先验和后验编码器均采用了正态分布进行重
 
 
 
-- 注意到由于先验分布采用 flow 之后，并不满足高斯分布，所以无法使用简单的基于高斯分布的KL散度来计算该项;
+
 
 ### 2.2 对齐估计(Alignment Estimation)
 
@@ -102,7 +104,7 @@ $$
 
 ### 2.4 模型结构
 
-- 后验编码器: non-causal WaveNet residual blocks. A WaveNet residual block consists of layers of dilated convolutions with a gated activation unit and skip connection. 最后由线性投影层得到 p(z\|x) 的均值和方差。对多说话人的情况，Wavenet 中的全局条件(global conditioning) 在残差网络中被使用，如下所示,  其中 h 是条件，具体来说是对应说话人的嵌入, 可以由声纹模型获得：
+- 后验编码器: non-causal WaveNet residual blocks. A WaveNet residual block consists of layers of dilated convolutions with a gated activation unit and skip connection. 最后由线性投影层得到 p(z\|x) 的均值和方差。对多说话人的情况，Wavenet 中的全局条件(global conditioning) 在残差网络的activation单元中被使用，如下所示,  其中 h 是条件，具体来说是对应说话人的嵌入, 可以由声纹模型获得：
 
 $$
 z = \tanh \left( W_{f,k} * x + V_{f,k}^T h \right) \odot \sigma \left( W_{g,k} * x + V_{g,k}^T h \right)
@@ -128,7 +130,7 @@ $$
 
 ### 3.1 数据集
 
-L1数据集(24 hours) 和VCTK数据集(44 hours)。注意到数据集规模还是比较小的。
+LJ数据集(24 hours) 和VCTK数据集(44 hours)。注意到数据集规模还是比较小的。
 
 ### 3.2 测试指标和结果
 

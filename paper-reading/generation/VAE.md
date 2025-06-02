@@ -15,22 +15,29 @@ VAE（变分自编码器）是一种生成模型，旨在通过最大化数据�
 VAE的核心思想是通过变分推断来近似真实后验分布。对于给定的观测数据 x，假设其潜在变量为 z ，我们希望学习模型的对数似然 $\log p(x)$ ，即生成数据的概率。形式如下：
 
 
-$$\log p(x) = \log \int p(x, z) \, dz$$
+$$
+\log p(x) = \log \int p(x, z) \, dz
+$$
 
 上述似然无法直接计算。我们引入一个变分分布 q(z|x)，用来近似真实的后验分布 p(z|x)。通过引入变分分布 q(z|x)，我们可以将对数似然分解成两个部分：
 
-$$log p(x) = \log \int p(x, z) \, dz = \log \int q(z|x) \frac{p(x|z) p(z)}{q(z|x)} \, dz  $$
+$$
+log p(x) = \log \int p(x, z) \, dz = \log \int q(z|x) \frac{p(x|z) p(z)}{q(z|x)} \, dz  
+$$
 
 这里的 q 即为编码器，将x映射到z。$q(z|x)$ 可以采用重参数化策略，建模为高斯分布:
 
-$$z = \mu(x) + \sigma(x) \cdot \epsilon, \quad \epsilon \sim \mathcal{N}(0, I)$$
+
+$$
+z = \mu(x) + \sigma(x) \cdot \epsilon, \quad \epsilon \sim \mathcal{N}(0, I)
+$$
 
 运用对数不等式, 可以得到 logp(x) 的下界为
 
 
 $$
 \begin{align}
-log p(x) &= \log \int q(z|x) \frac{p(x|z) p(z)}{q(z|x)} \, dz  \geq   \int  q(z|x)  \log\frac{p(x|z) p(z)}{q(z|x)} \, dz=\mathbb{E}_{q(z|x)}  \log \frac{p(z)q(z|x)}{q(z|x)} \\
+log p(x) &= \log \int q(z|x) \frac{p(x|z) p(z)}{q(z|x)} \, dz  \geq   \int  q(z|x)  \log\frac{p(x|z) p(z)}{q(z|x)} \, dz=\mathbb{E}_{q(z|x)}  \log \frac{p(z)p(z|x)}{q(z|x)} \\
 &=\mathbb{E}_{q(z|x)}  \log q(z|x) - \mathbb{E}_{q(z|x)}  \log \frac{q(z|x)} {p(z)}=\mathbb{E}_{q(z|x)}\log p(x|z) - D_{KL}[q(z|x) \parallel p(z)]
 \end{align}
 $$
