@@ -153,13 +153,17 @@ $$
 ​	其中 $W_{\gamma}$ 和 $W_{\beta}$ 为 MLP;
 
 - 帧级条件注入: 尽管前文采取了一些有助于帧级同步的策略，例如位置编码对齐等，但这些并不能有效的保证合成的音频与视频的同步性。为实现帧级同步，有必要显示的注入同步信息。模型利用Synchformer提取 24fps 的视觉同步特征 ，同步特征经过以下处理，得到帧级条件:
-  $$
-  c_f = \mathrm{Upsample}\left( \mathrm{ConvMLP}(F_{\mathrm{syn}}) \right) + \mathbf{1} c_g, \tag{6}
-  $$
+  
+$$
+c_f = \mathrm{Upsample}\left( \mathrm{ConvMLP}(F_{\mathrm{syn}}) \right) + \mathbf{1} c_g, \tag{6}
+$$
+  
   帧级特征仍然通过 adaLN 注入，以实现细粒度的对齐:
-  $$
-  \mathrm{adaLN}_f(x, c_f) = \mathrm{LayerNorm}(x) \cdot \mathbf{A}_\gamma(c_f) + \mathbf{A}_\beta(c_f), \tag{7}
-  $$
+  
+$$
+\mathrm{adaLN}_f(x, c_f) = \mathrm{LayerNorm}(x) \cdot \mathbf{A}_\gamma(c_f) + \mathbf{A}_\beta(c_f), \tag{7}
+$$
+  
   其中 $A_{\gamma}$ 和 $A_{\beta}$ 为 MLP;
 
 
@@ -189,12 +193,12 @@ $$
   - 真实数据分布：$\mathcal{N}(\mu_r, \Sigma_r)$
   - 生成数据分布：$\mathcal{N}(\mu_g, \Sigma_g)$
 
-  它们之间的 Fréchet Distance 定义为：
+  它们之间的 Fréchet Distance 定义如下，其基于正态分布假设下最优传输的Wasserstein距离得到。
 
-  $$
-  \text{FD}(\mathcal{N}_r, \mathcal{N}_g) = \|\mu_r - \mu_g\|_2^2 + \mathrm{Tr}\left(\Sigma_r + \Sigma_g - 2\left(\Sigma_r \Sigma_g\right)^{1/2}\right)
-  $$
-  Fréchet Distance是基于正态分布假设下最优传输的Wasserstein距离得到;
+$$
+\text{FD}(\mathcal{N}_r, \mathcal{N}_g) = \|\mu_r - \mu_g\|_2^2 + \mathrm{Tr}\left(\Sigma_r + \Sigma_g - 2\left(\Sigma_r \Sigma_g\right)^{1/2}\right)
+$$
+
 
 - KL散度: 略;
 
