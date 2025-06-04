@@ -113,12 +113,16 @@ optimizer = optim.Adam(model.parameters(), lr=1e-3)
 
 注意到在 residual flows 中，可以通过每次更新残差的方式，让分布逐渐从高斯分布变到目标分布。假设这一更新过程是连续的，而不是离散的。t 时刻的数据点 $x_t$ 经过模型的变换，在 $t+dt$  时刻变换为了 $x_{t+dt}$ , 则定义向量场 $u(x_t, \theta)$ 为 :
 
-$$\frac{dx_t}{dt}=u(x_t, \theta)$$
+$$
+\frac{dx_t}{dt}=u(x_t, \theta)
+$$
 
-其中向量场u 即为 ”流” (flow),  或称为向量场 (Vector field)。如果我们可以对向量场  $u_t (x_t, \theta)$ 进行建模，那么只需从 $x_0 \in N(0, \textbf{I})$  中随机采样，再通 过积分，就可以得到 $x_1$(当然，实际的积分是采用数值积分，过程是离散的) 
+其中向量场u 即为 ”流” (flow),  或称为向量场 (Vector field)。如果我们可以对向量场  $u_t (x_t, \theta) $  进行建模，那么只需从 $x_0 \in N(0, \textbf{I})$  中随机采样，再通 过积分，就可以得到 $x_1$(当然，实际的积分是采用数值积分，过程是离散的) 
+
 $$
 x_1 = x_0 + \int_{0}^{1} u(x_t, \theta) dt
 $$
+
 总结来说，Continuous Normalizing Flows 将数据从高斯分布演变到目标分布的过程视作为通过场来实现的，如下图所示 (或点击查看 [gif demo](./img/flow/demo.mp4))
 
 <div align="center"><img src="./img/flow/flow3.png" width=400></div>
