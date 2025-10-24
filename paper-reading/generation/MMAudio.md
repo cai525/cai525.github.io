@@ -1,5 +1,5 @@
 ---
-sort: 9
+sort: 10
 ---
 
 # MMAudio: Taming Multimodal Joint Training for High-Quality Video-to-Audio Synthesis
@@ -157,13 +157,13 @@ $$
 $$
 c_f = \mathrm{Upsample}\left( \mathrm{ConvMLP}(F_{\mathrm{syn}}) \right) + \mathbf{1} c_g, \tag{6}
 $$
-  
+
   帧级特征仍然通过 adaLN 注入，以实现细粒度的对齐:
-  
+
 $$
 \mathrm{adaLN}_f(x, c_f) = \mathrm{LayerNorm}(x) \cdot \mathbf{A}_\gamma(c_f) + \mathbf{A}_\beta(c_f), \tag{7}
 $$
-  
+
   其中 $A_{\gamma}$ 和 $A_{\beta}$ 为 MLP;
 
 
