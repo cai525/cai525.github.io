@@ -15,14 +15,10 @@ Master’s Student, Department of Electronic Engineering and Information Science
 - Advisor: Assoc. Prof. Yan Song (National Engineering Research Center for Speech and Language Information Processing)  
 - Expected Graduation: June 2026  
 
-<br>
-
 #### Dalian University of Technology (Sep. 2019 - June 2023)  
 Bachelor of Engineering, Electronic Information Engineering  
 - GPA: 93.20 / 100  
 - Rank: 2 / 183 (Top 1%)  
-
-<br>
 
 <br>
 
@@ -32,7 +28,7 @@ Bachelor of Engineering, Electronic Information Engineering
 
 <br>
 
-<br>
+
 
 ### 📖 Works
 
@@ -45,7 +41,7 @@ In ACM MM, 2025   \[ [paper](https://arxiv.org/abs/2507.16343) \| [demo](https:/
 
 
 
-![DASM]({/img/DASM.png){: width="60%" }
+![DASM]({{ site.baseurl }}/img/DASM.png){: width="60%" }
 
 <br>
 
@@ -72,15 +68,11 @@ In ICASSP, 2025    \[ [paper](https://ieeexplore.ieee.org/document/10889422) \| 
 
 <br>
 
-<br>
-
 #### MAT-SED: A Masked Audio Transformer with Masked-Reconstruction Based Pre-training for Sound Event Detection
 
 **Pengfei Cai**, Yan Song, Kang Li, Haoyu Song, Ian McLoughlin
 
 In Interspeech, 2024   \[ [paper](https://www.isca-archive.org/interspeech_2024/cai24_interspeech.html) \| [code](https://github.com/cai525/Transformer4SED/blob/main/docs/mat-sed)  \]
-
-<br>
 
 <br>
 
@@ -90,8 +82,6 @@ In Interspeech, 2024   \[ [paper](https://www.isca-archive.org/interspeech_2024/
 Xiaopeng Wang, Haorui Zheng, Ming Wen, Kang Yin, Yiran Wang, Nan Li, Feng Deng, Liang Dong, Chen Zhang, Di Zhang, Kun Gai
 
 \[ [paper](https://arxiv.org/pdf/2506.19774) \| [demo](https://klingfoley.github.io/Kling-Foley/)  \]
-
-<br>
 
 <br>
 
