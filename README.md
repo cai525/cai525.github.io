@@ -43,7 +43,7 @@ In ACM MM, 2025   \[ [paper](https://arxiv.org/abs/2507.16343) \| [demo](https:/
 
 
 
-<div align='center'><img src="_img/DASM.png"   width=60%></div>
+<div align='center'><img src="img/DASM.png"   width=60%></div>
 
 
 
@@ -58,7 +58,7 @@ In ACM MM, 2025   \[ [paper](https://arxiv.org/abs/2507.16343) \| [demo](https:/
 
 
 
-<div align='center'><img src="_img/segtune.png"  width=60%></div>
+<div align='center'><img src="img/segtune.png"  width=60%></div>
 
 
 
