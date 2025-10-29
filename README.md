@@ -20,13 +20,10 @@ Bachelor of Engineering, Electronic Information Engineering
 - GPA: 93.20 / 100  
 - Rank: 2 / 183 (Top 1%)  
 
-<br>
 
 ### 📧 Contact
 - e-mail: [cqi525@mail.ustc.edu.cn](mailto:cqi525@mail.ustc.edu.cn)  or [good_luck_cpf@163.com](mailto:good_luck_cpf@163.com)  
 - github: [GitHub: cai525](https://github.com/cai525)   
-
-<br>
 
 
 
@@ -45,8 +42,6 @@ In ACM MM, 2025   \[ [paper](https://arxiv.org/abs/2507.16343) \| [demo](https:/
 
 <br>
 
-<br>
-
 #### SegTune: Structured and Fine-Grained Control for Song Generation
 **Pengfei Cai**, Joanna Wang, Haorui Zheng, Xu Li, Zihao Ji, Teng Ma, Zhongliang Liu, Chen Zhang, Pengfei Wan
 
@@ -55,8 +50,6 @@ In ACM MM, 2025   \[ [paper](https://arxiv.org/abs/2507.16343) \| [demo](https:/
 
 
 ![SegTune]({{ site.baseurl }}/img/segtune.png){: width="60%" }
-
-<br>
 
 <br>
 
