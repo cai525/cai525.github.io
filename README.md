@@ -15,22 +15,24 @@ Master’s Student, Department of Electronic Engineering and Information Science
 - Advisor: Assoc. Prof. Yan Song (National Engineering Research Center for Speech and Language Information Processing)  
 - Expected Graduation: June 2026  
 
+<br>
+
 #### Dalian University of Technology (Sep. 2019 - June 2023)  
 Bachelor of Engineering, Electronic Information Engineering  
 - GPA: 93.20 / 100  
 - Rank: 2 / 183 (Top 1%)  
 
+<br>
 
+<br>
 
 ### 📧 Contact
 - e-mail: [cqi525@mail.ustc.edu.cn](mailto:cqi525@mail.ustc.edu.cn)  or [good_luck_cpf@163.com](mailto:good_luck_cpf@163.com)  
 - github: [GitHub: cai525](https://github.com/cai525)   
 
+<br>
 
-
-
-
-
+<br>
 
 ### 📖 Works
 
@@ -43,13 +45,11 @@ In ACM MM, 2025   \[ [paper](https://arxiv.org/abs/2507.16343) \| [demo](https:/
 
 
 
-![DASM]({{ site.baseurl }}/img/DASM.png){: width="60%" }
+![DASM]({/img/DASM.png){: width="60%" }
 
+<br>
 
-
-
-
-
+<br>
 
 #### SegTune: Structured and Fine-Grained Control for Song Generation
 **Pengfei Cai**, Joanna Wang, Haorui Zheng, Xu Li, Zihao Ji, Teng Ma, Zhongliang Liu, Chen Zhang, Pengfei Wan
@@ -60,13 +60,9 @@ In ACM MM, 2025   \[ [paper](https://arxiv.org/abs/2507.16343) \| [demo](https:/
 
 ![SegTune]({{ site.baseurl }}/img/segtune.png){: width="60%" }
 
+<br>
 
-
-
-
-
-
-
+<br>
 
 #### Prototype based Masked Audio Model for Self-Supervised Learning of Sound Event Detection
 
@@ -74,15 +70,19 @@ In ACM MM, 2025   \[ [paper](https://arxiv.org/abs/2507.16343) \| [demo](https:/
 
 In ICASSP, 2025    \[ [paper](https://ieeexplore.ieee.org/document/10889422) \| [code](https://github.com/cai525/Transformer4SED/blob/main/docs/pmam/readme.md)  \]
 
+<br>
 
+<br>
 
-#### MAT-SED: A MaskedAudio Transformer with Masked-Reconstruction Based Pre-training for Sound Event Detection
+#### MAT-SED: A Masked Audio Transformer with Masked-Reconstruction Based Pre-training for Sound Event Detection
 
 **Pengfei Cai**, Yan Song, Kang Li, Haoyu Song, Ian McLoughlin
 
 In Interspeech, 2024   \[ [paper](https://www.isca-archive.org/interspeech_2024/cai24_interspeech.html) \| [code](https://github.com/cai525/Transformer4SED/blob/main/docs/mat-sed)  \]
 
+<br>
 
+<br>
 
 #### Kling-Foley: Multimodal Diffusion Transformer for High-Quality Video-to-Audio Generation
 
@@ -91,7 +91,9 @@ Xiaopeng Wang, Haorui Zheng, Ming Wen, Kang Yin, Yiran Wang, Nan Li, Feng Deng, 
 
 \[ [paper](https://arxiv.org/pdf/2506.19774) \| [demo](https://klingfoley.github.io/Kling-Foley/)  \]
 
+<br>
 
+<br>
 
 #### Parameter-Efficient Tuning of Large Audio-Language Models for DCASE 2025 Challenge Task 5
 
