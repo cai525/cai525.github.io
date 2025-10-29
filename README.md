@@ -39,11 +39,11 @@ Bachelor of Engineering, Electronic Information Engineering
 
 **Pengfei Cai**, Yan Song, Qing Gu, Nan Jiang, Haoyu Song, Ian McLoughlin
 
-In ACM MM, 2025   [ [paper](https://arxiv.org/abs/2507.16343) | [demo](https://cai525.github.io/Transformer4SED/demo_page/DASM/index.html) | [code](https://github.com/cai525/Transformer4SED/tree/main/docs/DASM)  ]
+In ACM MM, 2025   \[ [paper](https://arxiv.org/abs/2507.16343) \| [demo](https://cai525.github.io/Transformer4SED/demo_page/DASM/index.html) \| [code](https://github.com/cai525/Transformer4SED/tree/main/docs/DASM)  \]
 
 
 
-<div align='center'><img src="./imgs/DASM.png" width=60%></div>
+<div align='center'><img src="_img/DASM.png"   width=60%></div>
 
 
 
@@ -54,11 +54,11 @@ In ACM MM, 2025   [ [paper](https://arxiv.org/abs/2507.16343) | [demo](https://c
 #### SegTune: Structured and Fine-Grained Control for Song Generation
 **Pengfei Cai**, Joanna Wang, Haorui Zheng, Xu Li, Zihao Ji, Teng Ma, Zhongliang Liu, Chen Zhang, Pengfei Wan
 
-[ [paper](https://www.arxiv.org/pdf/2510.18416) | [demo](https://cai525.github.io/SegTune_demo/) ]
+\[ [paper](https://www.arxiv.org/pdf/2510.18416) \| [demo](https://cai525.github.io/SegTune_demo/) \]
 
 
 
-<div align='center'><img src="./imgs/segtune.png" width=60%></div>
+<div align='center'><img src="_img/segtune.png"  width=60%></div>
 
 
 
@@ -72,7 +72,7 @@ In ACM MM, 2025   [ [paper](https://arxiv.org/abs/2507.16343) | [demo](https://c
 
 **Pengfei Cai**, Yan Song, Nan Jiang, Qing Gu, Ian McLoughlin
 
-In ICASSP, 2025    [ [paper](https://ieeexplore.ieee.org/document/10889422) | [code](https://github.com/cai525/Transformer4SED/blob/main/docs/pmam/readme.md)  ]
+In ICASSP, 2025    \[ [paper](https://ieeexplore.ieee.org/document/10889422) \| [code](https://github.com/cai525/Transformer4SED/blob/main/docs/pmam/readme.md)  \]
 
 
 
@@ -80,7 +80,7 @@ In ICASSP, 2025    [ [paper](https://ieeexplore.ieee.org/document/10889422) | [c
 
 **Pengfei Cai**, Yan Song, Kang Li, Haoyu Song, Ian McLoughlin
 
-In Interspeech, 2024   [ [paper](https://www.isca-archive.org/interspeech_2024/cai24_interspeech.html) | [code](https://github.com/cai525/Transformer4SED/blob/main/docs/mat-sed)  ]
+In Interspeech, 2024   \[ [paper](https://www.isca-archive.org/interspeech_2024/cai24_interspeech.html) \| [code](https://github.com/cai525/Transformer4SED/blob/main/docs/mat-sed)  \]
 
 
 
@@ -89,7 +89,7 @@ In Interspeech, 2024   [ [paper](https://www.isca-archive.org/interspeech_2024/c
  Jun Wang*, Xijuan Zeng*, Chunyu Qiang, Ruilong Chen, Shiyao Wang, Le Wang, Wangjing Zhou, **Pengfei Cai**, Jiahui Zhao, Nan Li, Zihan Li, Yuzhe Liang,
 Xiaopeng Wang, Haorui Zheng, Ming Wen, Kang Yin, Yiran Wang, Nan Li, Feng Deng, Liang Dong, Chen Zhang, Di Zhang, Kun Gai
 
-[ [paper](https://arxiv.org/pdf/2506.19774) | [demo](https://klingfoley.github.io/Kling-Foley/)  ]
+\[ [paper](https://arxiv.org/pdf/2506.19774) \| [demo](https://klingfoley.github.io/Kling-Foley/)  \]
 
 
 
@@ -97,5 +97,5 @@ Xiaopeng Wang, Haorui Zheng, Ming Wen, Kang Yin, Yiran Wang, Nan Li, Feng Deng, 
 
 **Pengfei Cai**, Yanfeng Shi, Qing Gu, Nan Jiang, Yan Song
 
-DCASE 2025 challenge， Audio Question Answering task，second place [ [DCASE](https://dcase.community/challenge2025/task-audio-question-answering) | [technical report](https://dcase.community/documents/challenge2025/technical_reports/DCASE2025_Cai_95_t5.pdf) ]
+DCASE 2025 challenge， Audio Question Answering task，second place \[ [DCASE](https://dcase.community/challenge2025/task-audio-question-answering) \| [technical report](https://dcase.community/documents/challenge2025/technical_reports/DCASE2025_Cai_95_t5.pdf) \]
 
