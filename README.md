@@ -34,7 +34,6 @@ Bachelor of Engineering, Electronic Information Engineering
 
 ### 📖 Works
 
----
 
 #### Detect Any Sound : Open-Vocabulary Sound Event Detection with Multi-Modal Queries
 
@@ -44,13 +43,13 @@ In ACM MM, 2025   [ [paper](https://arxiv.org/abs/2507.16343) | [demo](https://c
 
 
 
-<div align='center'><img src="/imgs/DASM.png" width=60%></div>
+<div align='center'><img src="./imgs/DASM.png" width=60%></div>
 
 
 
 
 
----
+
 
 #### SegTune: Structured and Fine-Grained Control for Song Generation
 **Pengfei Cai**, Joanna Wang, Haorui Zheng, Xu Li, Zihao Ji, Teng Ma, Zhongliang Liu, Chen Zhang, Pengfei Wan
@@ -59,13 +58,13 @@ In ACM MM, 2025   [ [paper](https://arxiv.org/abs/2507.16343) | [demo](https://c
 
 
 
-<div align='center'><img src="/imgs/segtune.png" width=60%></div>
+<div align='center'><img src="./imgs/segtune.png" width=60%></div>
 
 
 
 
 
----
+
 
 
 
