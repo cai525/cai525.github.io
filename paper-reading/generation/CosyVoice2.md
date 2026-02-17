@@ -18,6 +18,7 @@ CosyVoice 2 是 CosyVoice 的重大升级，目标是统一离线与流式合成
 ## 1. 有监督语音离散化：Finite Scalar Quantization (FSQ)
 
 FSQ（Finite Scalar Quantization）是 CosyVoice 2 中用于替代传统向量量化（VQ）的离散化方法。CosyVoice 采用 SenseVoice-Large ASR 模型作为音频编码器，在第六层插入 FSQ 模块，先将编码器输出映射到低秩空间后进行整数量化，再还原为原始维度特征，最后传入后续模块。具体过程如下：
+
 $$
 \bar{H} = \text{ROUND}(\text{Proj}_{\text{down}}(H)), \\ 
 \hat{H} = \text{Proj}_{\text{up}}(\bar{H})
@@ -83,7 +84,7 @@ $$
 - **多说话人微调：** 基于特定说话人对预训练模型进行微调 (SFT) 可以进一步提升生成质量和说话人相似度。本文引入多说话人微调 (mSFT)，即同时针对多个说话人而非单个说话人对预训练模型进行微调。这种方法确保了跨多个说话人的全面韵律和发音覆盖，并减轻了预训练模型潜在的灾难性遗忘。通过自然语言指令 `Speaker X<|endofprompt|>` 提供说话人控制标记，支持多说话人微调；
 
 
-<div align="center"><img src="./img/cosyvoice2&3/instructed-tts.png" width=650></div>
+<div align="center"><img src="./img/cosyvoice2&3/instructed-tts.png"  width=650></div>
 
 ## 5. 强化学习优化
 
@@ -92,6 +93,7 @@ $$
 ### 5.1 Direct Preference Optimization (DPO)
 
 CosyVoice 2 将 DPO 应用于语音生成任务中， 旨在通过人类偏好对比样本来对语言模型进行后验指导。这里使用 ASR 和声纹模型作为奖励函数，从采样的结果中得到 win-loss pair。之后通过DPO 做优化：
+
 $$
 \mathcal{L}_{DPO} = -\log \sigma \left( \beta \log \frac{\pi_\theta(\mu^w|y)}{\pi_{ref}(\mu^w|y)} - \beta \log \frac{\pi_\theta(\mu^l|y)}{\pi_{ref}(\mu^l|y)} \right)
 $$
@@ -99,6 +101,7 @@ $$
 ### 5.2  ASR 重建损失
 
 此外，为提升训练效率，进一步提升生成语音的语义一致性与可辨识度，CosyVoice 2 引入可微分的 ASR 模型进行辅助优化。LLM 的输出结果通过 gumble softmax 输出，之后送入到音频编码器的 FSQ模块，获得 ASR 结果。
+
 $$
 \bar{h}_{i,j} = \left\lfloor \frac{\mu_i}{(2K+1)^j} \right\rfloor \bmod (2K+1) \\
 \hat{H} = \text{Proj}_{\text{up}}(\bar{H}) \\
